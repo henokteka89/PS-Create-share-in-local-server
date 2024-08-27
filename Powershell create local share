@@ -1,0 +1,20 @@
+# Define variables: Set the drive letter, sharename, description
+$driveLetter = "W"
+$shareName = "WShare"
+$description = "Shared Drive W with Everyone"
+
+# Create the share and allow everyone full access
+New-SmbShare -Name $shareName -Path "$($driveLetter):\" -FullAccess Everyone -Description $description
+
+# Optionally, set permissions to ensure everyone has full control
+Grant-SmbShareAccess -Name $shareName -AccountName Everyone -AccessRight Full -Force
+
+# The share appears as \\HEN\WShare , myservername\sharename
+
+#Remove 
+
+# Define the share name (if working with the above script, no need to define, it is defined above)
+$shareName = "WShare"
+
+# Remove the share
+Remove-SmbShare -Name $shareName -Force
